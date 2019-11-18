@@ -53,3 +53,5 @@ function createButton(){
     }
     console.log(circleGenerated);
 }
+
+function dataNode(date, location, )
