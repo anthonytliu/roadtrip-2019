@@ -17,43 +17,68 @@
   --font-primary: 'Fira Sans', sans-serif;
   --font-secondary: 'Playfair Display', serif;
 }
-
+html,
 body {
   color: var(--cd-color-1);
   background-color: var(--cd-color-3);
+  height: 100%;
+  margin: 0;
 }
 
+.cd-h-timeline__main_title{
+  font-family: var(--font-primary);
+  color: var(--cd-color-1);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  padding-left: 1%;
+  padding-top: 1%;
+}
+
+.cd-h-timeline__main_title_date{
+  color: var(--cd-color-1);
+  padding-left: 1%;
+  font-style: italic;
+  height: 5%;
+}
 
 .js {
   .cd-h-timeline {
+    position: relative;
     opacity: 0;
+    height: 77%;
     transition: opacity 0.2s;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 
   .cd-h-timeline--loaded { // show the timeline after dates position has been set (using JavaScript)
     opacity: 1;
   }
 
+  //holds entire timeline + nav arrows
   .cd-h-timeline__container {
     position: relative;
-    height: 100px;
-    max-width: 800px;
+    height: 100%;
   }
 
+  //contains entire set of points within timeline + lines
   .cd-h-timeline__dates {
-    position: relative;
+    padding-left: 10%;
     height: 100%;
-    margin: 0 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 
-    &::after, &::before { // these are used to create a shadow effect at the sides of the timeline
-      content: '';
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      height: 100%;
-      width: 20px;
-    }
+    // &::after, &::before { // these are used to create a shadow effect at the sides of the timeline
+    //   content: '';
+    //   position: absolute;
+    //   z-index: 2;
+    //   width: 2px;
+    // }
 
     &::before {
       left: 0;
@@ -67,11 +92,9 @@ body {
   }
 
   .cd-h-timeline__line { // grey line
-    position: absolute;
+    position: relative;
     z-index: 1;
-    left: 0;
-    top: 49px;
-    height: 2px; // width will be set using JavaScript
+    height: 4px; // width will be set using JavaScript
     background-color: lightness(var(--cd-color-3), 0.9);
     transition: transform 0.4s;
   }
@@ -79,14 +102,12 @@ body {
   .cd-h-timeline__filling-line { // green filling line
     position: absolute;
     z-index: 1;
-    left: 0;
-    top: 0;
     height: 100%;
     width: 100%;
     background-color: var(--cd-color-2);
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 0.3s;
+    transition: transform 0.4s;
   }
 
   .cd-h-timeline__date {
@@ -140,56 +161,32 @@ body {
   }
 
   .cd-h-timeline__navigation { // arrows to navigate the timeline
+    content: '';
     position: absolute;
-    z-index: 1;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 34px;
-    width: 34px;
-    border-radius: 50%;
-    border-width: 2px;
-    border-style: solid;
-    border-color: lightness(var(--cd-color-3), 0.9);
-    transition: border-color 0.3s;
-    
-    &::after { // arrow icon
-      content: '';
-      position: absolute;
-      height: 16px;
-      width: 16px;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      background: url(../img/cd-arrow.svg) no-repeat 0 0;
-    }
-
-    &:hover {
-      border-color: var(--cd-color-2);
-    }
+    z-index: 2;
+    height: 32px;
+    width: 32px;
+    align-content: center;
+    background: url(../img/cd-arrow.svg) no-repeat 8px 8px;
+    visibility: hidden;
   }
 
   .cd-h-timeline__navigation--prev {
-    left: 0;
-    transform: translateY(-50%) rotate(180deg);
+    left: 5%;
+    transform:  rotate(180deg) scale(1.5, 1.5);
   }
 
   .cd-h-timeline__navigation--next {
-    right: 0;
+    right: 5%;
+    transform: scale(1.5, 1.5);
   }
 
   .cd-h-timeline__navigation--inactive {
     cursor: not-allowed;
-
-    &::after {
-      background-position: 0 -16px;
-    }
-
-    &:hover {
-      border-color: lightness(var(--cd-color-3), 0.9);
-    }
   }
 
   .cd-h-timeline__events { // container of events info
+    display: none;
     position: relative;
     width: 100%;
     overflow: hidden;

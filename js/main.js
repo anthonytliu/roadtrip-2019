@@ -111,7 +111,7 @@
 		(timeline.translate == containerWidth - timeline.lineLength ) ? Util.addClass(timeline.navigation[1], 'cd-h-timeline__navigation--inactive') : Util.removeClass(timeline.navigation[1], 'cd-h-timeline__navigation--inactive');
   };
 
-	function selectNewDate(timeline, target) { // ned date has been selected -> update timeline
+	function selectNewDate(timeline, target) { // end date has been selected -> update timeline
 		timeline.newDateIndex = Util.getIndexInArray(timeline.date, target);
 		timeline.oldDateIndex = Util.getIndexInArray(timeline.date, timeline.selectedDate);
 		Util.removeClass(timeline.selectedDate, 'cd-h-timeline__date--selected');

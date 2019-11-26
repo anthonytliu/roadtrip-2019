@@ -3524,15 +3524,49 @@ mark {
   --font-secondary: 'Playfair Display', serif;
 }
 
+html,
 body {
   color: var(--cd-color-1);
   background-color: var(--cd-color-3);
+  height: 100%;
+  margin: 0;
+}
+
+.cd-h-timeline__main_title {
+  font-family: var(--font-primary);
+  color: var(--cd-color-1);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  padding-left: 1%;
+  padding-top: 1%;
+}
+
+.cd-h-timeline__main_title_date {
+  color: var(--cd-color-1);
+  padding-left: 1%;
+  font-style: italic;
+  height: 5%;
 }
 
 .js .cd-h-timeline {
+  position: relative;
   opacity: 0;
+  height: 77%;
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .js .cd-h-timeline--loaded {
@@ -3541,24 +3575,23 @@ body {
 
 .js .cd-h-timeline__container {
   position: relative;
-  height: 100px;
-  max-width: 800px;
+  height: 100%;
 }
 
 .js .cd-h-timeline__dates {
-  position: relative;
+  padding-left: 10%;
   height: 100%;
-  margin: 0 40px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   overflow: hidden;
-}
-
-.js .cd-h-timeline__dates::after, .js .cd-h-timeline__dates::before {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  height: 100%;
-  width: 20px;
 }
 
 .js .cd-h-timeline__dates::before {
@@ -3574,11 +3607,9 @@ body {
 }
 
 .js .cd-h-timeline__line {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  left: 0;
-  top: 49px;
-  height: 2px;
+  height: 4px;
   background-color: hsl(var(--cd-color-3-h), var(--cd-color-3-s), calc(var(--cd-color-3-l) * 0.9));
   -webkit-transition: -webkit-transform 0.4s;
   transition: -webkit-transform 0.4s;
@@ -3589,8 +3620,6 @@ body {
 .js .cd-h-timeline__filling-line {
   position: absolute;
   z-index: 1;
-  left: 0;
-  top: 0;
   height: 100%;
   width: 100%;
   background-color: var(--cd-color-2);
@@ -3598,10 +3627,10 @@ body {
           transform: scaleX(0);
   -webkit-transform-origin: left center;
           transform-origin: left center;
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: -webkit-transform 0.3s;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
+  -webkit-transition: -webkit-transform 0.4s;
+  transition: -webkit-transform 0.4s;
+  transition: transform 0.4s;
+  transition: transform 0.4s, -webkit-transform 0.4s;
 }
 
 .js .cd-h-timeline__date {
@@ -3662,60 +3691,35 @@ body {
 }
 
 .js .cd-h-timeline__navigation {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  height: 34px;
-  width: 34px;
-  border-radius: 50%;
-  border-width: 2px;
-  border-style: solid;
-  border-color: hsl(var(--cd-color-3-h), var(--cd-color-3-s), calc(var(--cd-color-3-l) * 0.9));
-  -webkit-transition: border-color 0.3s;
-  transition: border-color 0.3s;
-}
-
-.js .cd-h-timeline__navigation::after {
   content: '';
   position: absolute;
-  height: 16px;
-  width: 16px;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
-  background: url(../img/cd-arrow.svg) no-repeat 0 0;
-}
-
-.js .cd-h-timeline__navigation:hover {
-  border-color: var(--cd-color-2);
+  z-index: 2;
+  height: 32px;
+  width: 32px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  background: url(../img/cd-arrow.svg) no-repeat 8px 8px;
+  visibility: hidden;
 }
 
 .js .cd-h-timeline__navigation--prev {
-  left: 0;
-  -webkit-transform: translateY(-50%) rotate(180deg);
-          transform: translateY(-50%) rotate(180deg);
+  left: 5%;
+  -webkit-transform: rotate(180deg) scale(1.5, 1.5);
+          transform: rotate(180deg) scale(1.5, 1.5);
 }
 
 .js .cd-h-timeline__navigation--next {
-  right: 0;
+  right: 5%;
+  -webkit-transform: scale(1.5, 1.5);
+          transform: scale(1.5, 1.5);
 }
 
 .js .cd-h-timeline__navigation--inactive {
   cursor: not-allowed;
 }
 
-.js .cd-h-timeline__navigation--inactive::after {
-  background-position: 0 -16px;
-}
-
-.js .cd-h-timeline__navigation--inactive:hover {
-  border-color: hsl(var(--cd-color-3-h), var(--cd-color-3-s), calc(var(--cd-color-3-l) * 0.9));
-}
-
 .js .cd-h-timeline__events {
+  display: none;
   position: relative;
   width: 100%;
   overflow: hidden;
