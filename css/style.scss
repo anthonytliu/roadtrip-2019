@@ -46,49 +46,34 @@ body {
     position: relative;
     opacity: 0;
     height: 77%;
+    width: 100%;
     transition: opacity 0.2s;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+    padding-top: 30;
+    align-self: center;
+    justify-self: center;
   }
 
   .cd-h-timeline--loaded { // show the timeline after dates position has been set (using JavaScript)
     opacity: 1;
   }
 
-  //holds entire timeline + nav arrows
+  // holds entire timeline + nav arrows
   .cd-h-timeline__container {
-    position: relative;
-    height: 100%;
+    position: static;
+    padding-left: 10%;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+    height: 100%; 
+    padding-top: 30px;
   }
 
   //contains entire set of points within timeline + lines
   .cd-h-timeline__dates {
-    padding-left: 10%;
+    position: relative;
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-
-    // &::after, &::before { // these are used to create a shadow effect at the sides of the timeline
-    //   content: '';
-    //   position: absolute;
-    //   z-index: 2;
-    //   width: 2px;
-    // }
-
-    &::before {
-      left: 0;
-      background: linear-gradient(to right, var(--cd-color-3), alpha(var(--cd-color-3), 0));
-    }
-
-    &::after {
-      right: 0;
-      background: linear-gradient(to left, var(--cd-color-3), alpha(var(--cd-color-3), 0));
-    }
   }
 
   .cd-h-timeline__line { // grey line
@@ -102,8 +87,8 @@ body {
   .cd-h-timeline__filling-line { // green filling line
     position: absolute;
     z-index: 1;
-    height: 100%;
     width: 100%;
+    height: 4px;
     background-color: var(--cd-color-2);
     transform: scaleX(0);
     transform-origin: left center;

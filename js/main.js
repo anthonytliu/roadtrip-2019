@@ -27,30 +27,31 @@
   };
 
   function initTimeline(timeline) {
-  	// set dates left position
-  	var left = 0;
-		for (var i = 0; i < timeline.dateValues.length; i++) { 
-			var j = (i == 0) ? 0 : i - 1;
-	    var distance = daydiff(timeline.dateValues[j], timeline.dateValues[i]),
-	    	distanceNorm = (Math.round(distance/timeline.minLapse) + 2)*timeline.eventsMinDistance;
-	
-	    if(distanceNorm < timeline.eventsMinDistance) {
-	    	distanceNorm = timeline.eventsMinDistance;
-	    } else if(distanceNorm > timeline.eventsMaxDistance) {
-	    	distanceNorm = timeline.eventsMaxDistance;
-	    }
-	    left = left + distanceNorm;
-	    timeline.date[i].setAttribute('style', 'left:' + left+'px');
-		}
-		
-		// set line/filling line dimensions
-    timeline.line.style.width = (left + timeline.eventsMinDistance)+'px';
-		timeline.lineLength = left + timeline.eventsMinDistance;
-		// reveal timeline
-		Util.addClass(timeline.element, 'cd-h-timeline--loaded');
-		selectNewDate(timeline, timeline.selectedDate);
-		resetTimelinePosition(timeline, 'next');
-  };
+    // set dates left position
+    var left = 0;
+    for (var i = 0; i < timeline.dateValues.length; i++) {
+        var j = (i == 0) ? 0 : i - 1;
+        var distance = daydiff(timeline.dateValues[j], timeline.dateValues[i]),
+            distanceNorm = (Math.round(distance / timeline.minLapse) + 2) * timeline.eventsMinDistance;
+
+        if (distanceNorm < timeline.eventsMinDistance) {
+            distanceNorm = timeline.eventsMinDistance;
+        } else if (distanceNorm > timeline.eventsMaxDistance) {
+            distanceNorm = timeline.eventsMaxDistance;
+        }
+        left = left + distanceNorm;
+        timeline.date[i].setAttribute('style', 'left:' + left + 'px');
+    }
+
+    // set line/filling line dimensions
+	timeline.line.style.width = (left + timeline.eventsMinDistance) + 'px';
+	timeline.line.style.minWidth = (left + timeline.eventsMinDistance) + 'px';
+    timeline.lineLength = left + timeline.eventsMinDistance;
+    // reveal timeline
+    Util.addClass(timeline.element, 'cd-h-timeline--loaded');
+    selectNewDate(timeline, timeline.selectedDate);
+    resetTimelinePosition(timeline, 'next');
+};
 
   function initEvents(timeline) {
   	var self = timeline;
@@ -92,7 +93,8 @@
 		var dateStyle = window.getComputedStyle(timeline.selectedDate, null),
 			left = dateStyle.getPropertyValue("left"),
 			width = dateStyle.getPropertyValue("width");
-		
+		console.log(left);
+		console.log(width);
 		left = Number(left.replace('px', '')) + Number(width.replace('px', ''))/2;
 		timeline.fillingLine.style.transform = 'scaleX('+(left/timeline.lineLength)+')';
 	};
@@ -112,11 +114,16 @@
   };
 
 	function selectNewDate(timeline, target) { // end date has been selected -> update timeline
-		timeline.newDateIndex = Util.getIndexInArray(timeline.date, target);
-		timeline.oldDateIndex = Util.getIndexInArray(timeline.date, timeline.selectedDate);
-		Util.removeClass(timeline.selectedDate, 'cd-h-timeline__date--selected');
-		Util.addClass(timeline.date[timeline.newDateIndex], 'cd-h-timeline__date--selected');
-		timeline.selectedDate = timeline.date[timeline.newDateIndex];
+		if (timeline.oldDateIndex == null){
+			timeline.newDateIndex = Util.getIndexInArray(timeline.date, target);
+			Util.addClass(timeline.date[timeline.newDateIndex], 'cd-h-timeline__date--selected');
+		}else{
+			timeline.newDateIndex = Util.getIndexInArray(timeline.date, target);
+			timeline.oldDateIndex = Util.getIndexInArray(timeline.date, timeline.selectedDate);
+			Util.removeClass(timeline.selectedDate, 'cd-h-timeline__date--selected');
+			Util.addClass(timeline.date[timeline.newDateIndex], 'cd-h-timeline__date--selected');
+			timeline.selectedDate = timeline.date[timeline.newDateIndex];
+		}
 		updateOlderEvents(timeline);
 		updateVisibleContent(timeline);
 		updateFilling(timeline);
