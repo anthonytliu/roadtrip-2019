@@ -3568,7 +3568,7 @@ body {
 }
 
 .js .cd-h-timeline__container {
-  position: static;
+  position: absolute;
   padding-left: 10%;
   display: -webkit-box;
   display: -ms-flexbox;
